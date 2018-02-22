@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $todos = Todo::with('user')->get();
+        $todos = Todo::with('user')->orderBy('updated_at', 'desc')->paginate(5);
         return view('home', [ 'todos' => $todos ]);
     }
 

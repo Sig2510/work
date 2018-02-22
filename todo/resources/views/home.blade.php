@@ -14,8 +14,8 @@
                         </div>
                     @endif
 
-                    <table class="table">
-                      <thead>
+                    <table class="table table-striped">
+                      <thead class="thead-dark">
                         <tr>
                           <th>Desc</th>
                           <th>Status</th>
@@ -51,6 +51,7 @@
                         @endforeach
                       </tbody>
                     </table>
+                    {!!$todos->links()!!}
                 </div>
             </div>
         </div>
