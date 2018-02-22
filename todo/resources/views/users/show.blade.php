@@ -5,15 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card card-default">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Hello, {{ $user->name }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
                     <table class="table">
                       <thead>
                         <tr>
@@ -24,7 +18,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($todos as $todo)
+                        @foreach ($user->todos as $todo)
                           <tr>
                             <td>
                               {{ $todo->desc }}
@@ -37,7 +31,7 @@
                               @endif
                             </td>
                             <td>
-                              <a href="{{ route('users.show', $todo->user->id) }}">{{ $todo->user->name }}</a>
+                              {{ $todo->user->name }}
                             </td>
                             <td>
                               <form method="POST" action="{{ route('toggle_status') }}">

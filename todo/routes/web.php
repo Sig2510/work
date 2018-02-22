@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
+Route::resource('todos', 'HomeController', ['only' => ['index', 'store', 'create']]);
+Route::put('/toggle', 'HomeController@toggle')->name('toggle_status');
+
+Route::get('/users/{id}', 'UserController@show')->name('users.show');
