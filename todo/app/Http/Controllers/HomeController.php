@@ -48,4 +48,12 @@ class HomeController extends Controller
 
       return redirect('/');
     }
+
+    public function destroy(Request $request)
+    {
+      $todo = Todo::find($request->id);
+      $todo->delete();
+
+      return redirect('/');
+    }
 }

@@ -16,5 +16,6 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::resource('todos', 'HomeController', ['only' => ['index', 'store', 'create']]);
 Route::put('/toggle', 'HomeController@toggle')->name('toggle_status');
+Route::put('/destroy', 'HomeController@destroy')->name('destroy');
 
 Route::get('/users/{id}', 'UserController@show')->name('users.show');

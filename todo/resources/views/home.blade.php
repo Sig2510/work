@@ -20,7 +20,9 @@
                           <th>Desc</th>
                           <th>Status</th>
                           <th>Username</th>
-                          <th>Actions</th>
+                          <th style="width:50px">Actions</th>
+                          <th style="width:50px"></th>
+                          <th style="width:50px"></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -39,12 +41,28 @@
                             <td>
                               <a href="{{ route('users.show', $todo->user->id) }}">{{ $todo->user->name }}</a>
                             </td>
-                            <td>
+                            <td >
                               <form method="POST" action="{{ route('toggle_status') }}">
                                 {{ csrf_field() }}
                                 @method('PUT')
                                 <input type="hidden" name="id" value="{{ $todo->id }}">
-                                <input type="submit" class="btn btn-default" value="Toggle Status">
+                                <input type="submit" class="btn btn-primary" value="Toggle Status">
+                              </form>
+                              </td>
+                              <td >
+                              <form method="POST" action="{{ route('destroy') }}">
+                                {{ csrf_field() }}
+                                @method('PUT')
+                                <input type="hidden" name="id" value="{{ $todo->id }}">
+                                <input type="submit" class="btn btn-danger" value="Destroy">
+                              </form>
+                            </td>
+                            <td >
+                               <form method="POST" action="{{ route('destroy') }}">
+                                {{ csrf_field() }}
+                                @method('PUT')
+                                <input type="hidden" name="id" value="{{ $todo->id }}">
+                                <input type="submit" class="btn btn-secondary" value="Edit">
                               </form>
                             </td>
                           </tr>
