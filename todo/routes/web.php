@@ -12,10 +12,11 @@
 */
 
 Auth::routes();
+Route::get('/', 'TodolistController@index');
 
-Route::get('/', 'HomeController@index');
-Route::resource('todos', 'HomeController', ['only' => ['index', 'store', 'create']]);
-Route::put('/toggle', 'HomeController@toggle')->name('toggle_status');
-Route::put('/destroy', 'HomeController@destroy')->name('destroy');
+Route::resource('todos', 'TodoController', ['only' => ['index', 'store']]);
+Route::put('/toggle', 'TodoController@toggle')->name('toggle_status');
 
 Route::get('/users/{id}', 'UserController@show')->name('users.show');
+Route::get('/todolists/{id}/todos/new', 'TodoController@create')->name('todos.create');
+Route::resource('todolists', 'TodolistController');

@@ -14,15 +14,13 @@
                         </div>
                     @endif
 
-                    <table class="table table-striped">
-                      <thead class="thead-dark">
+                    <table class="table">
+                      <thead>
                         <tr>
                           <th>Desc</th>
                           <th>Status</th>
                           <th>Username</th>
-                          <th style="width:50px">Actions</th>
-                          <th style="width:50px"></th>
-                          <th style="width:50px"></th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -32,44 +30,23 @@
                               {{ $todo->desc }}
                             </td>
                             <td>
-                              @if ($todo->status)
-                                Done
-                              @else
-                                Undone
-                              @endif
+                              {{ $todo->status() }}
                             </td>
                             <td>
                               <a href="{{ route('users.show', $todo->user->id) }}">{{ $todo->user->name }}</a>
                             </td>
-                            <td >
+                            <td>
                               <form method="POST" action="{{ route('toggle_status') }}">
                                 {{ csrf_field() }}
                                 @method('PUT')
                                 <input type="hidden" name="id" value="{{ $todo->id }}">
-                                <input type="submit" class="btn btn-primary" value="Toggle Status">
-                              </form>
-                              </td>
-                              <td >
-                              <form method="POST" action="{{ route('destroy') }}">
-                                {{ csrf_field() }}
-                                @method('PUT')
-                                <input type="hidden" name="id" value="{{ $todo->id }}">
-                                <input type="submit" class="btn btn-danger" value="Destroy">
-                              </form>
-                            </td>
-                            <td >
-                               <form method="POST" action="{{ route('destroy') }}">
-                                {{ csrf_field() }}
-                                @method('PUT')
-                                <input type="hidden" name="id" value="{{ $todo->id }}">
-                                <input type="submit" class="btn btn-secondary" value="Edit">
+                                <input type="submit" class="btn btn-default" value="Toggle Status">
                               </form>
                             </td>
                           </tr>
                         @endforeach
                       </tbody>
                     </table>
-                    {!!$todos->links()!!}
                 </div>
             </div>
         </div>

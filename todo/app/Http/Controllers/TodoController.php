@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Todo;
 
-class HomeController extends Controller
+class TodoController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,20 +24,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $todos = Todo::with('user')->orderBy('updated_at', 'desc')->paginate(5);
+        $todos = Todo::with('user')->get();
         return view('home', [ 'todos' => $todos ]);
     }
 
-    public function create()
+    public function create($id)
     {
       $todo = new Todo();
-      return view('add', [ 'todo' => $todo ]);
+      return view('add', [ 'todo' => $todo, 'todolist_id' => $id ]);
     }
 
     public function store(Request $request)
     {
-      Todo::create(['desc' => $request->desc, 'user_id' => \Auth::user()->id]);
-      return redirect('/');
+      Todo::create([
+        'desc' => $request->desc,
+        'user_id' => \Auth::user()->id,
+        'todolist_id' => $request->todolist_id
+      ]);
+      return redirect('/todolists/' . $request->todolist_id);
     }
 
     public function toggle(Request $request)
@@ -46,14 +50,6 @@ class HomeController extends Controller
       $todo->status = !$todo->status;
       $todo->save();
 
-      return redirect('/');
-    }
-
-    public function destroy(Request $request)
-    {
-      $todo = Todo::find($request->id);
-      $todo->delete();
-
-      return redirect('/');
+      return redirect('/todolists/' . $request->todolist_id);
     }
 }

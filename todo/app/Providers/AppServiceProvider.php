@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Weather;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $weather = Weather::getCurrentWeather('odesa');
+        view()->share('weather', $weather->temp);
     }
 
     /**
