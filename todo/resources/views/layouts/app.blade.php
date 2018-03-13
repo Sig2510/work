@@ -30,6 +30,9 @@
                       <li>
                         The weather is {{ $weather }}
                       </li>
+                      <li>
+                        The weather which was year ago {{ $hweather }}
+                      </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

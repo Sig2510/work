@@ -32,3 +32,28 @@ class Weather extends Model
       }
     }
 }
+class hWeather extends Model
+{
+    protected $fillable = ['temp', 'city', 'icon', 'hum'];
+
+    public static function getHistoryWeather($city)
+    {
+      $hweather = self::where('city', $city)->where('created_at', '>', Carbon::now()->subHours(1)->toDateString())->first();
+       #dd($hweather);
+      if ($hweather) {
+        return $hweather;
+      } else {
+        $api_data = OpenweatherApi::getHistoryWeather($city);
+        $new_hweather = new hWeather([
+          'city' => $city,
+          'temp' => $api_data->main->temp,
+          'hum'  => $api_data->main->humidity,
+          'icon' => $api_data->weather[0]->icon
+        ]);
+
+        $new_hweather->save();
+
+        return $new_hweather;
+      }
+    }
+}
